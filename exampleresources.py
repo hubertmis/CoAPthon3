@@ -149,6 +149,16 @@ class Big(Resource):
             self.payload = request.payload
         return self
 
+class Fota(Resource):
+
+    def __init__(self, name="Fota", coap_server=None):
+        super(Fota, self).__init__(name, coap_server, visible=True, observable=True, allow_children=True)
+        with open('build/zephyr/app_update.bin', 'rb') as reader:
+            self.payload = reader.read()
+
+    def render_GET(self, request):
+        return self
+
 
 class voidResource(Resource):
     def __init__(self, name="Void"):
